@@ -1,52 +1,41 @@
-
-const CRYSTAL_SIZE = 500;
+const CRYSTAL_SIZE = 150;
 const SIDES = 6;
-var  PALETTE = [];
-const layers = [];
 
+var  PALETTE = [];
+var ALL_CRYSTALS = [];
+//layout
+const MARGIN = CRYSTAL_SIZE / 2;
+const COLUMNS = 3;
+const ROWS = 4;
+const PADDING = CRYSTAL_SIZE * 0.2;
+const GRIDBOX = CRYSTAL_SIZE + PADDING; 
+const START = (CRYSTAL_SIZE / 2) + MARGIN;
 function setup(){
-    createCanvas(530, 530, SVG);
+    const totalX =  START + GRIDBOX * COLUMNS
+    const totalY = START + GRIDBOX * ROWS
+    createCanvas(totalX, totalY, SVG);
     noLoop();
     angleMode(DEGREES);
+    rectMode(CENTER);
 
     PALETTE = [
         color(255, 52, 154), //pink
-        color(4, 0, 152), //blue
+        color(4, 0, 152), //blues
     ]
 };
-var ourCircle;
+
 function draw(){
-
-    // ourCircle = new Circles()
-    // ourCircle.render();
-
-    // ourSimpleLine = new SimpleLines();
-    // ourSimpleLine.render();
-
-    // ourShape = new OutlineShape();
-    // ourShape.render();
-    // testLines();
-
-    var picker = random(1);
-    if(picker > 0.3){
-        layers.push(new OutlineShape());
+    // background('teal');
+    for(var x = 0; x < COLUMNS; ++x){
+        for(var y = 0; y < ROWS; ++y){
+            const posX = START + (x * GRIDBOX);
+            const posY = START + (y * GRIDBOX);      
+            ALL_CRYSTALS.push(new Crystal(posX, posY))     
+        }
     }
-
-    picker = random(1);
-    if(picker > 0.3){
-        layers.push(new SimpleLines());
-    }
-
-    picker = random(1);
-    if(picker > 0.3){
-        layers.push(new Circles());
-
-    }
-
-    layers.forEach(layer => {
-        layer.render();
+    
+    ALL_CRYSTALS.forEach(crystal => {
+        crystal.render();
     });
 }
-
-
 
